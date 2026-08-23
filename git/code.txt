@@ -1,0 +1,102 @@
+PS C:\Users\harsh\OneDrive\Desktop\Terraform proj\terraform-aws-webapp\environments\dev> terraform apply
+╷
+│ Warning: Deprecated Parameter
+│ 
+│ The parameter "dynamodb_table" is deprecated. Use parameter "use_lockfile" instead.
+╵
+Acquiring state lock. This may take a few moments...
+module.rds.random_password.db_password: Refreshing state... [id=none]
+module.asg.data.aws_ami.amazon_linux: Reading...
+module.vpc.aws_eip.nat: Refreshing state... [id=eipalloc-0b63a6e2acabd3ad6]
+module.vpc.aws_vpc.main: Refreshing state... [id=vpc-068a82a751ecfe622]
+module.asg.data.aws_ami.amazon_linux: Read complete after 2s [id=ami-0cb4805a67d37bd33]
+module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0fd0dfb1220dd755c]
+module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-0cfc7fccb0a64be73]
+module.vpc.aws_internet_gateway.main: Refreshing state... [id=igw-0c1cee605d3b6e503]
+module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-03a0c78114f848001]
+module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0ccf64809dd80975e]
+module.alb.aws_security_group.alb: Refreshing state... [id=sg-0bf3ba9b98600658a]
+module.alb.aws_lb_target_group.app: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:312957452521:targetgroup/dev-tg/009b3574c1ad4af6]
+module.vpc.aws_route_table.public: Refreshing state... [id=rtb-00ec3406777f5fd15]
+module.rds.aws_db_subnet_group.main: Refreshing state... [id=dev-db-subnet-group]
+module.asg.aws_security_group.app: Refreshing state... [id=sg-01cfcab1588504121]
+module.vpc.aws_nat_gateway.main: Refreshing state... [id=nat-07b3539378ef6c8ce]
+module.alb.aws_lb.main: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:312957452521:loadbalancer/app/dev-alb/bc66f1f5aa24823f]
+module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0abc2ea8a14b17e93]
+module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-00e63e75b74719854]
+module.asg.aws_launch_template.app: Refreshing state... [id=lt-0fe8ab98dc0169956]
+module.rds.aws_security_group.db: Refreshing state... [id=sg-09a3036101931b25c]
+module.vpc.aws_route_table.private: Refreshing state... [id=rtb-0699034dd67d3eaeb]
+module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0512ea2551ed5734a]
+module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-0ee70dec8b6d4f81b]
+module.asg.aws_autoscaling_group.app: Refreshing state... [id=dev-asg]
+module.rds.aws_db_instance.main: Refreshing state... [id=db-YHQSUWUA77237THWFFVDPGK5LU]
+module.alb.aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:312957452521:listener/app/dev-alb/bc66f1f5aa24823f/efbc97edb69b6bd2]
+module.asg.aws_autoscaling_policy.cpu: Refreshing state... [id=dev-cpu-scaling]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # module.asg.aws_autoscaling_group.app will be updated in-place
+  ~ resource "aws_autoscaling_group" "app" {
+      ~ desired_capacity                 = 1 -> 2
+        id                               = "dev-asg"
+        name                             = "dev-asg"
+        # (30 unchanged attributes hidden)
+
+        # (5 unchanged blocks hidden)
+    }
+
+  # module.rds.aws_secretsmanager_secret.db_password will be created
+  + resource "aws_secretsmanager_secret" "db_password" {
+      + arn                            = (known after apply)
+      + force_overwrite_replica_secret = false
+      + id                             = (known after apply)
+      + name                           = "dev-db-password"
+      + name_prefix                    = (known after apply)
+      + policy                         = (known after apply)
+      + recovery_window_in_days        = 30
+      + tags_all                       = (known after apply)
+
+      + replica (known after apply)
+    }
+
+  # module.rds.aws_secretsmanager_secret_version.db_password will be created
+  + resource "aws_secretsmanager_secret_version" "db_password" {
+      + arn                  = (known after apply)
+      + has_secret_string_wo = (known after apply)
+      + id                   = (known after apply)
+      + secret_id            = (known after apply)
+      + secret_string        = (sensitive value)
+      + secret_string_wo     = (write-only attribute)
+      + version_id           = (known after apply)
+      + version_stages       = (known after apply)
+    }
+
+Plan: 2 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.rds.aws_secretsmanager_secret.db_password: Creating...
+module.asg.aws_autoscaling_group.app: Modifying... [id=dev-asg]
+module.rds.aws_secretsmanager_secret.db_password: Creation complete after 2s [id=arn:aws:secretsmanager:us-east-1:312957452521:secret:dev-db-password-TFCJ8u]
+module.rds.aws_secretsmanager_secret_version.db_password: Creating...
+module.rds.aws_secretsmanager_secret_version.db_password: Creation complete after 1s [id=arn:aws:secretsmanager:us-east-1:312957452521:secret:dev-db-password-TFCJ8u|terraform-20260823103820847400000002]
+module.asg.aws_autoscaling_group.app: Still modifying... [id=dev-asg, 00m10s elapsed]
+module.asg.aws_autoscaling_group.app: Still modifying... [id=dev-asg, 00m20s elapsed]
+module.asg.aws_autoscaling_group.app: Modifications complete after 24s [id=dev-asg]
+Releasing state lock. This may take a few moments...
+
+Apply complete! Resources: 2 added, 1 changed, 0 destroyed.
+
+Outputs:
+
+alb_dns_name = "dev-alb-657462721.us-east-1.elb.amazonaws.com"
+db_endpoint = "dev-db.ckpys82iy1ik.us-east-1.rds.amazonaws.com:5432"
