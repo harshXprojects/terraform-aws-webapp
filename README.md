@@ -128,19 +128,20 @@ terraform destroy
 
 **Live application:**
 
-![Live app response](docs/screenshots/live-app.png)
+![Live app response](docs/screenshots/terraform-alb-1.png)
+![Live app response](docs/screenshots/tf-alb-2.png)
 
 **VPC resource map** — VPC, 4 subnets across 2 AZs, route tables:
 
-![VPC resource map](docs/screenshots/vpc-resource-map.png)
+![VPC resource map](docs/screenshots/tf-vpc-1.png)
 
 **Target group health** — proves the ALB → target group → EC2 chain is actually working, not just provisioned:
 
-![Target group health](docs/screenshots/target-group-health.png)
+![Target group health](docs/screenshots/target-tf.png)
 
 **RDS instance** — running, and confirmed private (`Publicly accessible: No`):
 
-![RDS instance](docs/screenshots/rds-instance.png)
+![RDS instance](docs/screenshots/db-tf.png)
 
 ## Known limitations
 
